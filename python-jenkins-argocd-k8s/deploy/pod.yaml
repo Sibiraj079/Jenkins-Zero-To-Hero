@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
   - name: todo-app
-    image: abhishekf5/todoapp:v1
+    image: sibi079/python-todo-app:32
     ports:
     - containerPort: 8000
