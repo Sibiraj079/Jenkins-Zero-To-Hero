@@ -19,11 +19,12 @@ pipeline {
         stage('Build Docker'){
             steps{
                 script{
+                    dir('python-jenkins-argocd-k8s'){
                     sh '''
                     echo 'Buid Docker Image'
                     docker build -t sibi079/python-todo-app:${BUILD_NUMBER} .
                     '''
-                }
+                }}
             }
         }
 
