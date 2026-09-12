@@ -58,12 +58,12 @@ pipeline {
                             git config user.email "sibiraj@example.com"
                             git config user.name "Jenkins CI"
                             cat deploy.yaml
-                            sed -i "s/32/${BUILD_NUMBER}/g" deploy.yaml
+                            sed -i "s|image: sibi079/python-todo-app:.*|image: sibi079/python-todo-app:${BUILD_NUMBER}|" deploy.yaml
                             cat deploy.yaml
                             git add deploy.yaml
-                            git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                            git commit -m "Updated image tag to ${BUILD_NUMBER} | Jenkins Pipeline"
                             git push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
-                            '''                        
+                            '''                    
                     }
                 }
             }
