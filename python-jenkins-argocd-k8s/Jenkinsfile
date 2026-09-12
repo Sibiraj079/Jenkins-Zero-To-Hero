@@ -55,7 +55,7 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'ga1', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                            git config user.email "sibiraj@example.com"
+                            git config user.email "sibiraj0709@gmail.com"
                             git config user.name "Jenkins CI"
                             cat deploy.yaml
                             sed -i "s|image: sibi079/python-todo-app:.*|image: sibi079/python-todo-app:${BUILD_NUMBER}|" deploy.yaml
