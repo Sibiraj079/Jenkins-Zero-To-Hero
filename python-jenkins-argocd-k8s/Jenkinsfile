@@ -61,9 +61,19 @@ pipeline {
                             sed -i "s|image: sibi079/python-todo-app:.*|image: sibi079/python-todo-app:${BUILD_NUMBER}|" deploy.yaml
                             cat deploy.yaml
                             git add deploy.yaml
-                            git commit -m "Updated image tag to ${BUILD_NUMBER} | Jenkins Pipeline"
-                            git -c http.extraHeader="AUTHORIZATION: bearer ${GIT_PASSWORD}" push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
-                            '''                    
+                            git commit -m "Updated image tag to ${BUILD_NUMBER} | Jenkins Pipeline" || echo "Nothing to commit"
+        
+                            cat > /tmp/askpass.sh << 'EOF'
+        #!/bin/sh
+        case "$1" in
+          Username*) echo "$GIT_USERNAME" ;;
+          Password*) echo "$GIT_PASSWORD" ;;
+        esac
+        EOF
+                            chmod +x /tmp/askpass.sh
+                            GIT_ASKPASS=/tmp/askpass.sh git push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
+                            rm -f /tmp/askpass.sh
+                        '''
                     }
                 }
             }
