@@ -62,7 +62,7 @@ pipeline {
                             cat deploy.yaml
                             git add deploy.yaml
                             git commit -m "Updated image tag to ${BUILD_NUMBER} | Jenkins Pipeline"
-                            git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
+                            git -c http.extraHeader="AUTHORIZATION: bearer ${GIT_PASSWORD}" push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
                             '''                    
                     }
                 }
