@@ -55,14 +55,15 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'ga1', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
-                        cat deploy.yaml
-                        sed -i "s/32/${BUILD_NUMBER}/g" deploy.yaml
-                        cat deploy.yaml
-                        git add deploy.yaml
-                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                        git remote -v
-                        git push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
-                        '''                        
+                            git config user.email "sibiraj@example.com"
+                            git config user.name "Jenkins CI"
+                            cat deploy.yaml
+                            sed -i "s/32/${BUILD_NUMBER}/g" deploy.yaml
+                            cat deploy.yaml
+                            git add deploy.yaml
+                            git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                            git push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
+                            '''                        
                     }
                 }
             }
