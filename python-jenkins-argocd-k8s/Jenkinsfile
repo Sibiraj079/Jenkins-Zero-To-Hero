@@ -63,13 +63,7 @@ pipeline {
                             git add deploy.yaml
                             git commit -m "Updated image tag to ${BUILD_NUMBER} | Jenkins Pipeline" || echo "Nothing to commit"
         
-                            cat > /tmp/askpass.sh << 'EOF'
-                            #!/bin/sh
-                            case "$1" in
-                              Username*) echo "$GIT_USERNAME" ;;
-                              Password*) echo "$GIT_PASSWORD" ;;
-                            esac
-                            EOF
+                            printf '#!/bin/sh\\ncase "$1" in\\n  Username*) echo "$GIT_USERNAME" ;;\\n  Password*) echo "$GIT_PASSWORD" ;;\\nesac\\n' > /tmp/askpass.sh
                             chmod +x /tmp/askpass.sh
                             GIT_ASKPASS=/tmp/askpass.sh git push https://github.com/Sibiraj079/cicd-demo-manifests-repo.git HEAD:main
                             rm -f /tmp/askpass.sh
